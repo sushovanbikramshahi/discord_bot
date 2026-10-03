@@ -20,9 +20,36 @@ async def on_ready():
     print('------')
 
 
+#on member join event
+
+@bot.event
+async def send_welcome(member):
+    channel = member.guild.system_channel   # or: member.guild.get_channel(CHANNEL_ID)
+    if channel is None:
+        return
+
+    embed = discord.Embed(
+        title=f"Welcome to {member.guild.name}! 🎉",
+        description=f"Glad to have you here, {member.mention}!",
+        color=discord.Color.green()
+    )
+    embed.set_thumbnail(url=member.display_avatar.url)
+    embed.add_field(name="You are member no:", value=f"#{member.guild.member_count}")
+    embed.set_footer(text="Enjoy your stay!")
+
+    # content=... makes the new member actually get pinged
+    await channel.send(content=member.mention, embed=embed)
+
+
 @bot.event
 async def on_member_join(member):
-    print(f'Welcome idiot {member.name}!')
+    await send_welcome(member)
+
+#it is just to check if the welcome message is working or not, you can remove it later
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def testwelcome(ctx):
+    await send_welcome(ctx.author)
 
 
 
@@ -48,7 +75,7 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
-#just checking if the bot responses
+#just checking if the bot responses it is not important you can remove it later
 @bot.command()
 async def hello(ctx):
     await ctx.send(f'hi {ctx.author.mention}')

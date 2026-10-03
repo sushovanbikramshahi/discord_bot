@@ -18,14 +18,13 @@ Prefix: `!`
 |`!warncount @user'  | Shows the warn count of the user | `!warncount @ram ` |
 |`!resetcount @user'  | Resets the warn count of the user | `!resetwarn @ram ` |
 
- @ram @spamming` |
 
 
 
 
 ## Automatic features
 
-- Welcomes new members when they join
+- Welcomes new members when they join with a nice template
 - Deletes messages with banned words and warns the sender
 
 ## How to run it
