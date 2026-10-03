@@ -97,7 +97,7 @@ async def poll(ctx, *, question):
     await ctx.send(embed=embed, view=PollView())
 
 
-#making sound if important words are mentioned
+#making sound if important words are mentioned (!imp "message")
 import asyncio 
 SOUND_NAME = "airhorn"
 
@@ -106,6 +106,11 @@ async def imp(ctx, *, message: str = None):
     if message is None:
         await ctx.send("Usage: `!imp your message`")
         return
+    try:
+        await ctx.message.delete() #delets the user massage so no redundancy
+
+    except discord.Forbidden:
+        pass  
 
     await ctx.send(f"📢 **IMPORTANT** from {ctx.author.mention}: {message}")
 
@@ -139,6 +144,19 @@ async def imp(ctx, *, message: str = None):
     finally:
         if ctx.voice_client:
             await ctx.voice_client.disconnect()
+
+#banning and kicking users
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def kick(ctx, member: discord.Member, *,reason=None):
+    await member.kick(reason=reason)
+    await ctx.send(f"{member.mention} has been kicked because: {reason}")
+
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def ban(ctx, member: discord.Member, *,reason=None):
+    await member.ban(reason=reason)
+    await ctx.send(f"{member.mention} has been banned because: {reason}")
 
 
 bot.run(token,log_handler=handler, log_level=logging.DEBUG)

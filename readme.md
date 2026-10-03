@@ -12,6 +12,10 @@ Prefix: `!`
 | `!remove @user @role` | Removes a role from a member | `!remove @Ram @moderator` |
 | `!poll question` | Creates a poll with 👍 / 👎 buttons | `!poll Do you like pizza?` |
 | `!imp message` | joins voice and alerts people of the imp message | `!imp I need the papers now.` |
+|`!kick @user @reason` | kicks the member with reason given by administator | `!kick @ram @spamming` |
+|`!ban @user @reason` | ban the member with reason given by administator | `!ban @ram @spamming` |
+
+
 
 
 ## Automatic features
