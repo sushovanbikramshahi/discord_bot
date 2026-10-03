@@ -25,6 +25,9 @@ async def on_member_join(member):
     print(f'Welcome idiot {member.name}!')
 
 
+
+
+#filtering the words
 BANNED_WORDS = ["shit", "fuck", "bitch"]  # add your own curse 
 
 @bot.event
@@ -43,10 +46,24 @@ async def on_message(message):
         return
 
     await bot.process_commands(message)
-    
+
+
+#just checking if the bot responses
 @bot.command()
 async def hello(ctx):
     await ctx.send(f'hi {ctx.author.mention}')
+
+
+#role assignment and removal    (&assign @user @role) (&remove @user @role)
+@bot.command()
+async def assign(ctx, member: discord.Member, role: discord.Role):
+    await member.add_roles(role)
+    await ctx.send(f"{member.mention} got the {role.name} role!")
+
+@bot.command()
+async def remove(ctx, member: discord.Member, role: discord.Role):
+    await member.remove_roles(role)
+    await ctx.send(f"{member.mention} lost the {role.name} role!")
 
 bot.run(token,log_handler=handler, log_level=logging.DEBUG)
 
