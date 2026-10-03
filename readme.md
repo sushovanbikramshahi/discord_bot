@@ -8,9 +8,10 @@ Prefix: `!`
 
 | Command | What it does | Example |
 |---------|--------------|---------|
-| `!assign @user @role` | Gives a role to a member | `%assign @Ram @moderator` |
-| `!remove @user @role` | Removes a role from a member | `%remove @Ram @moderator` |
-| `!poll question` | Creates a poll with 👍 / 👎 buttons | `%poll Do you like pizza?` |
+| `!assign @user @role` | Gives a role to a member | `!assign @Ram @moderator` |
+| `!remove @user @role` | Removes a role from a member | `!remove @Ram @moderator` |
+| `!poll question` | Creates a poll with 👍 / 👎 buttons | `!poll Do you like pizza?` |
+| `!imp message` | joins voice and alerts people of the imp message | `!imp I need the papers now.` |
 
 
 ## Automatic features

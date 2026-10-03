@@ -97,6 +97,48 @@ async def poll(ctx, *, question):
     await ctx.send(embed=embed, view=PollView())
 
 
+#making sound if important words are mentioned
+import asyncio 
+SOUND_NAME = "airhorn"
+
+@bot.command()
+async def imp(ctx, *, message: str = None):
+    if message is None:
+        await ctx.send("Usage: `!imp your message`")
+        return
+
+    await ctx.send(f"📢 **IMPORTANT** from {ctx.author.mention}: {message}")
+
+    channel = None
+    if ctx.author.voice:
+        channel = ctx.author.voice.channel
+    else:
+        for vc in ctx.guild.voice_channels:
+            if any(not m.bot for m in vc.members):
+                channel = vc
+                break
+
+    if channel is None:
+        return
+
+    if ctx.voice_client is None:
+        await channel.connect()
+    elif ctx.voice_client.channel != channel:
+        await ctx.voice_client.move_to(channel)
+
+    try:
+        all_sounds = await bot.fetch_soundboard_default_sounds()
+        sound = discord.utils.get(all_sounds, name=SOUND_NAME)
+        if sound:
+            await channel.send_sound(sound)
+            await asyncio.sleep(6)
+        else:
+            print(f"Sound '{SOUND_NAME}' not found")
+    except Exception as e:
+        print(f"Sound error: {e}")
+    finally:
+        if ctx.voice_client:
+            await ctx.voice_client.disconnect()
 
 
 bot.run(token,log_handler=handler, log_level=logging.DEBUG)
