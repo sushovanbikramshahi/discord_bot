@@ -158,6 +158,36 @@ async def ban(ctx, member: discord.Member, *,reason=None):
     await member.ban(reason=reason)
     await ctx.send(f"{member.mention} has been banned because: {reason}")
 
+#warning system
+warn_count = {}
+Max_Warns = 3
+
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def warn(ctx , member: discord.Member , * , reason=None):
+    if member.bot and ctx.author.guild_permissions.administrator:
+        await ctx.send("You cannot warn a bot.")
+        return
+
+    warn_count[member.id] = warn_count.get(member.id, 0) + 1
+    await ctx.send(f"{member.mention} has been warned for: {reason}. Total warnings: {warn_count[member.id]}")
+
+
+    if warn_count[member.id] >= Max_Warns:
+        await member.kick(reason="Exceeded maximum warnings")
+        await ctx.send(f"{member.mention} has been kicked for exceeding the maximum warnings.")
+        warn_count[member.id] = 0  # Reset the warning count after kicking
+
+
+@bot.command()
+async def warncount(ctx , member: discord.Member):
+    count = warn_count.get(member.id , 0)
+    await ctx.send(f"{member.mention} has got {count} warnings out of {Max_Warns} warnings.")
+
+@bot.command()
+async def resetwarn(ctx , member: discord.Member):
+    warn_count[member.id] = 0
+    await ctx.send(f"{member.mention}'s warnings have been reset.")
 
 bot.run(token,log_handler=handler, log_level=logging.DEBUG)
 

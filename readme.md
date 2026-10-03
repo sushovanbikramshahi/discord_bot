@@ -14,6 +14,11 @@ Prefix: `!`
 | `!imp message` | joins voice and alerts people of the imp message | `!imp I need the papers now.` |
 |`!kick @user @reason` | kicks the member with reason given by administator | `!kick @ram @spamming` |
 |`!ban @user @reason` | ban the member with reason given by administator | `!ban @ram @spamming` |
+|`!warn @user @reason` | warn the member with reason and bans if maximum warning is reached | `!warn@ram @spamming` |
+|`!warncount @user'  | Shows the warn count of the user | `!warncount @ram ` |
+|`!resetcount @user'  | Resets the warn count of the user | `!resetwarn @ram ` |
+
+ @ram @spamming` |
 
 
 
