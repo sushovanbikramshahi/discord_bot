@@ -65,6 +65,40 @@ async def remove(ctx, member: discord.Member, role: discord.Role):
     await member.remove_roles(role)
     await ctx.send(f"{member.mention} lost the {role.name} role!")
 
+
+#polling system (%poll "question")
+class PollView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+        self.votes = {}  # user id -> "like" or "dislike"
+
+    def update_labels(self):
+        likes = list(self.votes.values()).count("like")
+        dislikes = list(self.votes.values()).count("dislike")
+        self.like_button.label = f"👍 {likes}"
+        self.dislike_button.label = f"👎 {dislikes}"
+
+    @discord.ui.button(label="👍 0", style=discord.ButtonStyle.green)
+    async def like_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.votes[interaction.user.id] = "like"
+        self.update_labels()
+        await interaction.response.edit_message(view=self)
+
+    @discord.ui.button(label="👎 0", style=discord.ButtonStyle.red)
+    async def dislike_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.votes[interaction.user.id] = "dislike"
+        self.update_labels()
+        await interaction.response.edit_message(view=self)
+
+
+@bot.command()
+async def poll(ctx, *, question):
+    embed = discord.Embed(title="Poll", description=question, color=discord.Color.gold())
+    await ctx.send(embed=embed, view=PollView())
+
+
+
+
 bot.run(token,log_handler=handler, log_level=logging.DEBUG)
 
 
