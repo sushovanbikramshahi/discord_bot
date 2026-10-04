@@ -7,12 +7,21 @@ import os
 load_dotenv()
 token = os.getenv('DISCORD_KEY')
 
+
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 
-bot = commands.Bot(command_prefix='!', intents=intents)
+# in newer version of discord py, await needs to be added for loading cogs so class needs to be made
+class bot_setup(commands.Bot):
+    async def setup_hook(self):
+        await self.load_extension("cogs.weather") # loading cogs
+
+
+bot = bot_setup(command_prefix='!', intents=intents)
+
+
 
 @bot.event
 async def on_ready():
