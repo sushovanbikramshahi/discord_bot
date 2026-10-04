@@ -23,7 +23,10 @@ class weather(commands.Cog):
         print(data)
         await ctx.send(
             f'''
-                Current temp = {data["current_weather"]["temperature"]}
-                Current windspeed = {data["current_weather"]["windspeed"]}
+            Current temp = {data["current_weather"]["temperature"]}
+Current windspeed = {data["current_weather"]["windspeed"]}
             '''
         )
+
+async def setup(bot):
+    await bot.add_cog(weather(bot))
