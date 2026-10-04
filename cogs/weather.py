@@ -20,6 +20,7 @@ class weather(commands.Cog):
         url = f"{weather_api}latitude={latitude}&longitude={longitude}&current_weather=true"
         response = requests.get(url)
         data = response.json()
+        print(data)
         await ctx.send(
             f'''
                 Current temp = {data["current_weather"]["temperature"]}
