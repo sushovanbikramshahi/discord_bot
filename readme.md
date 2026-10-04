@@ -17,6 +17,7 @@ Prefix: `!`
 |`!warncount @user ` | Shows the warn count of the user | `!warncount @ram ` |
 |`!resetcount @user`  | Resets the warn count of the user | `!resetwarn @ram ` |
 |`!current_weather`  | Shows the current weather | `!current_weather ` |
+| `!server_info` | Shows information about the server | `!server_info` |
 
 
 

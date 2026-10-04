@@ -16,7 +16,8 @@ intents.members = True
 # in newer version of discord py, await needs to be added for loading cogs so class needs to be made
 class bot_setup(commands.Bot):
     async def setup_hook(self):
-        await self.load_extension("cogs.weather") # loading cogs
+        await self.load_extension("cogs.weather") # loading weather inside the cogs
+        await self.load_extension("cogs.server_info") # loading server_info inside the cogs
 
 
 bot = bot_setup(command_prefix='!', intents=intents)
