@@ -17,6 +17,7 @@ Prefix: `!`
 |`!warn @user @reason` | warn the member with reason and bans if maximum warning is reached | `!warn@ram @spamming` |
 |`!warncount @user'  | Shows the warn count of the user | `!warncount @ram ` |
 |`!resetcount @user'  | Resets the warn count of the user | `!resetwarn @ram ` |
+|`!current_weather` | Shows the current weather | `!current_weather` |
 
 
 
